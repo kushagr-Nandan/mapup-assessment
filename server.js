@@ -46,19 +46,23 @@ app.post('/', (req, res) => {
         {
             d={}
             var line2 = turf.lineString(lines[i]["line"]["coordinates"]);
-            if (booleanCrosses(line2, line1))
-            {
+            // if (booleanCrosses(line2, line1))
+            // {
                 if(i<10)
                 {
                     d[`L0${i+1}`]=lineIntersect(line2, line1);
-                    intersections.push(d);
+                    if(d[`L0${i+1}`]["features"].length >0){
+                        intersections.push(d);
+                    }
                 }
                 else
                 {
                     d[`L${i+1}`]=lineIntersect(line2, line1);
-                    intersections.push(d);
+                    if(d[`L${i+1}`]["features"].length >0){
+                        intersections.push(d);
+                    }
                 }
-            }
+            // }
         }
         res.json({
             success: true,
